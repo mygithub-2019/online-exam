@@ -1,22 +1,25 @@
 <template>
     <div>
-        <h1> Exam started <sub>Time left: {{  }}</sub></h1>
+        <h1> Exam started <sub>Time left: <span class="demo" :timer='startTimerCount()'><span id='demo'>&nbsp;</span></span></sub></h1>
         <hr>
-        Question No: {{ questionNo }}
-        <div v-for="(qton, index) in getQuestions" v-bind:key="index">
+        <!-- Question No: {{ questionNo }} {{ qtn = questions[questionNo - 1] }} <br> -->
+        <!-- {{getQuestionByNo}} -->
+        <!-- <div v-for="(qton, index) in getQuestions" v-bind:key="index">
             <app-question-tempate :question='qton' :qNo="questionNo"></app-question-tempate>
-        </div><br>
+        </div><br> -->
+        <app-question-tempate :question='getQuestionByNo'></app-question-tempate>
+        <br>
         <div>
             <button class="btn btn-primary float-center"
-                :disabled='questionNo == 1'
+                :disabled='questionNo == 0'
                 @click="previousQuestion"
             >Previous</button> &nbsp; &nbsp;
             <button class="btn btn-primary float-center"
-                :disabled='questionNo == 10'
+                :disabled='questionNo == 9'
                 @click="nextQuestion"    
             >Next</button> &nbsp; &nbsp;
             <button class="btn btn-primary float-center"
-                v-show='questionNo == 10'   
+                v-show='questionNo == 9'   
             >SUBMIT</button>
         </div>
     </div>
@@ -34,10 +37,11 @@ export default {
     },
     computed: {
         ...mapState([
-            'questionNo'
+            'questionNo',
+            'questions'
         ]),
         ...mapGetters([
-            'getQuestions'
+            'getQuestionByNo'
         ])
     },
     components: {
@@ -49,17 +53,42 @@ export default {
             'NEXT_QUESTION'
         ]),
         ...mapActions([
-
+            
         ]),
         previousQuestion() {
             this.PREVIOUS_QUESTION()
         },
         nextQuestion() {
             this.NEXT_QUESTION(mapState.questionNo)
+        },
+        startTimerCount(start){
+            if(!start){
+                clearInterval(x);
+            }
+            var countDownDate = new Date(Date.now() + (30 * 60 * 1000));
+            var x = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById("demo").innerHTML =  minutes + "m " + seconds + "s ";
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "EXPIRED";
+                }
+            }, 1000);
         }
     },
     created() {
 
+    },
+    beforeRouteLeave() {
+        this.startTimerCount(false)
     }
 }
 </script>
+<style lang="scss" scoped>
+.demo{
+    color: red
+}
+</style>

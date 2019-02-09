@@ -1,26 +1,33 @@
 <template>
     <div>
-        {{ qNo }}. <span>{{ question.question }}</span>
+        <span>{{ question.question }}</span><br>
         <div v-for="(option, index) in question.options" v-bind:key="index">
             {{ index + 1 }}. 
             <input type="radio" 
                 name="answer" 
                 :value='option.option'
-                v-model="answer">  {{ option.option }}
+                v-model="answer"
+                @change="answerSelected">  {{ option.option }}
         </div>
-        {{ answer }}
+        <!-- {{ allAnswers }} -->
     </div>
 </template>
 
 <script>
 export default {
     props: [
-        'question',
-        'qNo'
+        'question'
     ],
     data(){
         return {
             answer: ''
+            // allAnswers: []
+        }
+    },
+    methods: {
+        answerSelected(){
+            
+            //this.allAnswers.push({})
         }
     }
 }

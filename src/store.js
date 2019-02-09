@@ -3,24 +3,26 @@ import Vuex from 'vuex'
 
 import questions from './modal/questionsDB.json'
 
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isExamStarted: false,
-    questionNo: 1
+    questionNo: 0,
+    questions: questions,
+    isExamStarted: false
   },
   getters: {
-    getQuestions(){
-      return questions
+    getQuestionByNo(state){
+      return questions[state.questionNo]
     }
-  },
+},
   mutations: {
     START_EXAM: (state, payload) => {
       state.isExamStarted = payload
     },
     PREVIOUS_QUESTION: (state, payload) => {
-      if(state.questionNo > 1){
+      if(state.questionNo > 0){
         state.questionNo --
       }
     },
@@ -28,11 +30,13 @@ export default new Vuex.Store({
       if(state.questionNo < 10){
         state.questionNo ++
       }
+      //getQuestions(getters.questionNo)
+      //this.getQuestionByNo(state.questionNo)
     }
   },
   actions: {
-    getQuestionByNo: (context, payload) => {
-      context.commit('NEXT_QUESTION', payload)
+    getQuestionByNo: ({commit, getters}, payload) => {
+      commit('NEXT_QUESTION', payload)
     }
   }
 })

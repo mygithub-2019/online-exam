@@ -24,7 +24,6 @@
         </div>
       </div>
     </div>
-    <!-- <p>{{ isExamStarted }} </p> -->
   </div>
 </template>
 
