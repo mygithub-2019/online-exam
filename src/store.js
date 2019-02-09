@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     questionNo: 0,
     questions: questions,
-    isExamStarted: false
+    isExamStarted: false,
+    isExamEnd: false
   },
   getters: {
     getQuestionByNo(state){
@@ -20,6 +21,9 @@ export default new Vuex.Store({
   mutations: {
     START_EXAM: (state, payload) => {
       state.isExamStarted = payload
+    },
+    END_EXAM: (state, payload) => {
+      state.isExamEnd = payload
     },
     PREVIOUS_QUESTION: (state, payload) => {
       if(state.questionNo > 0){

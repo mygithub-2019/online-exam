@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="jumbotron float-center">
+        <div class="jumbotron float-center" v-show="!isExamEnd">
             <table>
                 <tr><b>{{questionNo + 1}}. <span>{{ question.question }}</span></b></tr>
             </table><br>
@@ -17,7 +17,7 @@
             <!-- <span style="width: 20px">{{ index + 1 }}.</span>  -->
             <table>
                 <!-- <tr><p>{{questionNo + 1}}. <span>{{ question.question }}</span></p></tr> -->
-                <tr class="form-check col-md-4" v-for="(option, index) in question.options" v-bind:key="index">
+                <tr class="form-check col-md-6" v-for="(option, index) in question.options" v-bind:key="index">
                     <td><label class="form-check-label"></label></td>
                     <td><input 
                     type="radio" 
@@ -50,12 +50,19 @@
                 :disabled='questionNo == 9'
                 @click="nextQuestion"    
             >Next</button> &nbsp; &nbsp;
+
             <button class="btn btn-primary float-center"
                 v-show='questionNo == 9' 
+                @click="reviewAnswers"  
+            >Review Answers</button>
+
+            <!-- <button class="btn btn-primary float-center"
+                v-show='questionNo == 9' 
                 @click="submitTest"  
-            >SUBMIT</button>
-        </div><br>
-        <div>
+            >SUBMIT</button> -->
+        </div>
+        <br>
+        <div v-show="isReviewAnswers">
             <h1>Your answers...!</h1>
             <table>
                 <thead>
@@ -69,6 +76,10 @@
                     </tr>
                 </tbody>
             </table>
+            <button class="btn btn-primary float-center"
+                v-show='questionNo == 9' 
+                @click="submitTest"  
+            >SUBMIT</button>
         </div>
     </div>
 </template>
@@ -80,7 +91,8 @@ export default {
     computed: {
         ...mapState([
             'questionNo',
-            'questions'
+            'questions',
+            'isExamEnd'
         ]),
         ...mapGetters([
             'getQuestionByNo'
@@ -93,17 +105,27 @@ export default {
         return {
             answer: '',
             allAnswers: [],
+            isReviewAnswers: false,
+            //isExamEnd: false
             //isPrevQuestion: false
         }
     },
     methods: {
         ...mapMutations([
             'PREVIOUS_QUESTION',
-            'NEXT_QUESTION'
+            'NEXT_QUESTION',
+            'END_EXAM'
         ]),
         ...mapActions([
             
         ]),
+        reviewAnswers(){
+            this.addAnswer({
+                "id": this.questionNo,
+                "answer": this.answer
+            })
+            this.isReviewAnswers = true;
+        },
         previousQuestion() {
             this.PREVIOUS_QUESTION()
             //this.getQuestionByNo()
@@ -138,7 +160,7 @@ export default {
                     this.allAnswers.push(data)
                 }
             }
-            this.answer = ""
+            //this.answer = ""
         },
         updateAnswer(data){
             for(let i = 0; i <= this.allAnswers.length; i++){
@@ -153,13 +175,16 @@ export default {
                 "answer": this.answer
             })
             console.log(this.allAnswers)
+            this.END_EXAM('ture')
+            this.$router.push('/')
+            window.location.reload()
         },
         ansSelected(){
             this.question.answer = this.answer
         }
     },
     beforeRouteLeave() {
-        this.startTimerCount(false)
+        //this.startTimerCount(false)
     }
 }
 </script>
