@@ -11,7 +11,8 @@ export default new Vuex.Store({
     questionNo: 0,
     questions: questions,
     isExamStarted: false,
-    isExamEnd: false
+    isExamEnd: false,
+    isUserAuthenticated: false
   },
   getters: {
     getQuestionByNo(state){
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     }
 },
   mutations: {
+    IS_USER_AUTHENTICATED: (state, payload) => {
+      state.isUserAuthenticated = payload
+    },
     START_EXAM: (state, payload) => {
       state.isExamStarted = payload
     },
