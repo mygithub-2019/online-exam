@@ -1,12 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav" v-bind:hidden="isExamStarted">
+      <h1>{{ title }}</h1>
+      <router-link to="/">Login</router-link> |
+      <router-link to="/register">Register</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState([
+      'isExamStarted'
+    ])
+  },
+  data() {
+    return {
+      title: 'Welcome To Your Online Exam...!'
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

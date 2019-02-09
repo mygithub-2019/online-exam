@@ -1,0 +1,23 @@
+
+ [
+    {
+        "question": "Which is the number in given below optoins ?",
+        "answer": "Three",
+        "options": [
+            { "option": "One"},
+            { "option": "Two"},
+            { "option": "Three"},
+            { "option": "Four"}
+        ]
+    },
+    {
+        "question": "Which is the string in given below optoins ?",
+        "answer": "Two",
+        "options": [
+            { "option": "One"},
+            { "option": "Two"},
+            { "option": "Three"},
+            { "option": "Four"}
+        ]
+    }
+ ]
