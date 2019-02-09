@@ -60,7 +60,7 @@ export default {
     },
     getAllUsers(){
       axios.get('https://online-exam-1652f.firebaseio.com/user.json').then(res => {
-        console.log(res)
+        //console.log(res)
         this.users = res.data
       })
       .catch(err => {

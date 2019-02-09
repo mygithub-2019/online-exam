@@ -25,6 +25,7 @@ export default new Vuex.Store({
       if(state.questionNo > 0){
         state.questionNo --
       }
+      //this.questions[state.questionNo]
     },
     NEXT_QUESTION: (state, payload) => {
       if(state.questionNo < 10){

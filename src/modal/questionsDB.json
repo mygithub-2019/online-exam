@@ -1,192 +1,65 @@
 [
     {
       "id": "1",
-      "question": "Question-1",
-      "answer": "Three",
-      "options": [
-        {
-          "option": "range"
-        },
-        {
-          "option": "median"
-        },
-        {
-          "option": "mode"
-        },
-        {
-          "option": "mean"
-        }
-      ]
+      "question": "Which of the following tag represents a generic document or application section in HTML5?",
+      "answer": "",
+      "options": ["section", "article", "aside", "header"]
     },
     {
       "id": "2",
-      "question": "Question-2",
-      "answer": "Two",
-      "options": [
-        {
-          "option": "they must be mutually exclusive"
-        },
-        {
-          "option": "the sum of their probabilities must be equal to one"
-        },
-        {
-          "option": "their intersection must be zero"
-        },
-        {
-          "option": "None of these alternatives is correct."
-        }
-      ]
+      "question": "Which of the following tag can be used to mark up a conversation in HTML5?",
+      "answer": "",
+      "options": ["footer", "nav", "dialog", "figure"]
     },
     {
       "id": "3",
-      "question": "Question-3",
-      "answer": "Two",
-      "options": [
-        {
-          "option": "descriptive statistic"
-        },
-        {
-          "option": "probability function"
-        },
-        {
-          "option": "variance"
-        },
-        {
-          "option": "random variable "
-        }
-      ]
+      "question": "Which of the following input control represents a time (hour, minute, seconds, fractional seconds) encoded according to ISO 8601 in Web Form 2.0?",
+      "answer": "",
+      "options": ["week", "number", "time", "range"]
     },
     {
       "id": "4",
-      "question": "Question-4",
-      "answer": "Three",
-      "options": [
-        {
-          "option": "range"
-        },
-        {
-          "option": "median"
-        },
-        {
-          "option": "mode"
-        },
-        {
-          "option": "mean"
-        }
-      ]
+      "question": "Can you use MathML tags directly in HTML5 without any plugin?",
+      "answer": "",
+      "options": ["true", "false"]
     },
     {
       "id": "5",
-      "question": "Question-5",
-      "answer": "Three",
-      "options": [
-        {
-          "option": "range"
-        },
-        {
-          "option": "median"
-        },
-        {
-          "option": "mode"
-        },
-        {
-          "option": "mean"
-        }
-      ]
+      "question": "Which of the following is correct Content-type header that a server side script should send for SSE in HTML5?",
+      "answer": "",
+      "options": ["Content-Type: text/event-stream", "Content-Type: text/application-stream",
+            "Content-Type: text/data-stream", "None of the above"]
     },
     {
       "id": "6",
-      "question": "Question-6",
-      "answer": "Three",
-      "options": [
-        {
-          "option": "range"
-        },
-        {
-          "option": "median"
-        },
-        {
-          "option": "mode"
-        },
-        {
-          "option": "mean"
-        }
-      ]
+      "question": "Which of the following is true about 'canvas' tag in HTML5?",
+      "answer": "",
+      "options": ["HTML5 element <canvas> gives you an easy and powerful way to draw graphics using JavaScript.",
+            "It can be used to draw graphs, make photo compositions or do simple (and not so simple) animations.",
+            "Both of the above.", "None of the above."]
     },
     {
       "id": "7",
-      "question": "Question-7",
-      "answer": "Two",
-      "options": [
-        {
-          "option": "they must be mutually exclusive"
-        },
-        {
-          "option": "the sum of their probabilities must be equal to one"
-        },
-        {
-          "option": "their intersection must be zero"
-        },
-        {
-          "option": "None of these alternatives is correct."
-        }
-      ]
+      "question": "Which of the following attribute triggers an abort event?",
+      "answer": "",
+      "options": ["offline", "onabort", "abort", "onbeforeonload"]
     },
     {
       "id": "8",
-      "question": "Question-8",
-      "answer": "Two",
-      "options": [
-        {
-          "option": "descriptive statistic"
-        },
-        {
-          "option": "probability function"
-        },
-        {
-          "option": "variance"
-        },
-        {
-          "option": "random variable "
-        }
-      ]
+      "question": "Which of the following attribute triggers event when the window loses focus?",
+      "answer": "",
+      "options": ["onbeforeload", "onblur", "onlostfocus", "lostfocus"]
     },
     {
       "id": "9",
-      "question": "Question-9",
-      "answer": "Three",
-      "options": [
-        {
-          "option": "range"
-        },
-        {
-          "option": "median"
-        },
-        {
-          "option": "mode"
-        },
-        {
-          "option": "mean"
-        }
-      ]
+      "question": "Which of the following attribute triggers event when an element is being dragged over a valid drop target?",
+      "answer": "",
+      "options": ["ondragleave", "ondrag", "ondragover", "ondragstart"]
     },
     {
       "id": "10",
-      "question": "Question-10",
+      "question": "Which of the following attribute triggers event when the document goes offline?",
       "answer": "Three",
-      "options": [
-        {
-          "option": "range"
-        },
-        {
-          "option": "median"
-        },
-        {
-          "option": "mode"
-        },
-        {
-          "option": "mean"
-        }
-      ]
+      "options": ["onloadedmetadata", "onloadstart", "onmessage", "onoffline"]
     }
   ]

@@ -1,34 +1,165 @@
 <template>
     <div>
-        <span>{{ question.question }}</span><br>
-        <div v-for="(option, index) in question.options" v-bind:key="index">
+        <div class="jumbotron float-center">
+            <table>
+                <tr><b>{{questionNo + 1}}. <span>{{ question.question }}</span></b></tr>
+            </table><br>
+        <!-- <div v-for="(option, index) in question.options" v-bind:key="index">
             {{ index + 1 }}. 
-            <input type="radio" 
+            <input 
+                type="radio" 
                 name="answer" 
                 :value='option.option'
                 v-model="answer"
-                @change="answerSelected">  {{ option.option }}
+                >  {{ option.option }}
+        </div> -->
+        <!-- <div class="form-check" > -->
+            <!-- <span style="width: 20px">{{ index + 1 }}.</span>  -->
+            <table>
+                <!-- <tr><p>{{questionNo + 1}}. <span>{{ question.question }}</span></p></tr> -->
+                <tr class="form-check col-md-4" v-for="(option, index) in question.options" v-bind:key="index">
+                    <td><label class="form-check-label"></label></td>
+                    <td><input 
+                    type="radio" 
+                    class="form-check-input" 
+                    name="answer" 
+                    :value='option'
+                    v-model="answer"
+                    @click="ansSelected"
+                    >{{ option }}</td>
+                </tr>
+            </table>
+            <!-- <label class="form-check-label"></label>
+                <input 
+                    type="radio" 
+                    class="form-check-input" 
+                    name="answer" 
+                    :value='option.option'
+                    v-model="answer"
+                    checked>{{ option.option }} -->
+            
+        <!-- </div> -->
         </div>
-        <!-- {{ allAnswers }} -->
+        <br>
+        <div>
+            <button class="btn btn-primary float-center"
+                :disabled='questionNo == 0'
+                @click="previousQuestion"
+            >Previous</button> &nbsp; &nbsp;
+            <button class="btn btn-primary float-center"
+                :disabled='questionNo == 9'
+                @click="nextQuestion"    
+            >Next</button> &nbsp; &nbsp;
+            <button class="btn btn-primary float-center"
+                v-show='questionNo == 9' 
+                @click="submitTest"  
+            >SUBMIT</button>
+        </div><br>
+        <div>
+            <h1>Your answers...!</h1>
+            <table>
+                <thead>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(ans, index) of allAnswers" v-bind:key="index">
+                        <td>Qtn {{ index + 1}}</td>
+                        <td>{{ ans.answer }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+
 export default {
+    computed: {
+        ...mapState([
+            'questionNo',
+            'questions'
+        ]),
+        ...mapGetters([
+            'getQuestionByNo'
+        ])
+    },
     props: [
         'question'
     ],
     data(){
         return {
-            answer: ''
-            // allAnswers: []
+            answer: '',
+            allAnswers: [],
+            //isPrevQuestion: false
         }
     },
     methods: {
-        answerSelected(){
+        ...mapMutations([
+            'PREVIOUS_QUESTION',
+            'NEXT_QUESTION'
+        ]),
+        ...mapActions([
             
-            //this.allAnswers.push({})
+        ]),
+        previousQuestion() {
+            this.PREVIOUS_QUESTION()
+            //this.getQuestionByNo()
+            //this.isPrevQuestion = !this.isPrevQuestion
+        },
+        nextQuestion() {
+            //this.isPrevQuestion = false
+            let _data = {
+                "id": this.questionNo,
+                "answer": this.answer
+            }
+            this.NEXT_QUESTION(mapState.questionNo)
+            this.addAnswer(_data)
+        },
+        addAnswer(data){
+            if(this.allAnswers.length == 0){
+                this.allAnswers.push(data)
+                return
+            }
+            if(this.allAnswers.length){
+                let _found = false
+                for(let i = 0; i < this.allAnswers.length; i++){
+                    if(this.allAnswers[i].id == data.id){
+                        _found = true
+                        this.allAnswers[i].answer = (data.answer != '') ? data.answer : this.allAnswers[i].answer 
+                        data.answer = ''
+                    }else{
+                        continue
+                    }
+                }
+                if(!_found){
+                    this.allAnswers.push(data)
+                }
+            }
+            this.answer = ""
+        },
+        updateAnswer(data){
+            for(let i = 0; i <= this.allAnswers.length; i++){
+                if(this.allAnswers[i] == data.id){
+                   this.allAnswers[i].answer = data.answer 
+                }
+            }
+        },
+        submitTest(){
+            this.addAnswer({
+                "id": this.questionNo,
+                "answer": this.answer
+            })
+            console.log(this.allAnswers)
+        },
+        ansSelected(){
+            this.question.answer = this.answer
         }
+    },
+    beforeRouteLeave() {
+        this.startTimerCount(false)
     }
 }
 </script>

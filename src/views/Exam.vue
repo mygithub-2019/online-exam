@@ -1,7 +1,9 @@
 <template>
     <div>
-        <h1> Exam started <sub>Time left: <span class="demo" :timer='startTimerCount()'><span id='demo'>&nbsp;</span></span></sub></h1>
-        <hr>
+        <h3> Exam started</h3> <h5>Duration: 30min</h5>
+            <!-- <sub>Time left: <span class="demo" :timer='startTimerCount()'><span id='demo'>&nbsp;</span></span></sub> -->
+        
+        
         <!-- Question No: {{ questionNo }} {{ qtn = questions[questionNo - 1] }} <br> -->
         <!-- {{getQuestionByNo}} -->
         <!-- <div v-for="(qton, index) in getQuestions" v-bind:key="index">
@@ -10,7 +12,7 @@
         <app-question-tempate :question='getQuestionByNo'></app-question-tempate>
         <br>
         <div>
-            <button class="btn btn-primary float-center"
+            <!-- <button class="btn btn-primary float-center"
                 :disabled='questionNo == 0'
                 @click="previousQuestion"
             >Previous</button> &nbsp; &nbsp;
@@ -20,7 +22,7 @@
             >Next</button> &nbsp; &nbsp;
             <button class="btn btn-primary float-center"
                 v-show='questionNo == 9'   
-            >SUBMIT</button>
+            >SUBMIT</button> -->
         </div>
     </div>
 </template>
@@ -36,10 +38,10 @@ export default {
         }
     },
     computed: {
-        ...mapState([
-            'questionNo',
-            'questions'
-        ]),
+        // ...mapState([
+        //     'questionNo',
+        //     'questions'
+        // ]),
         ...mapGetters([
             'getQuestionByNo'
         ])
@@ -48,19 +50,19 @@ export default {
         appQuestionTempate: QuestionTempate
     },
     methods:{
-        ...mapMutations([
-            'PREVIOUS_QUESTION',
-            'NEXT_QUESTION'
-        ]),
-        ...mapActions([
+        // ...mapMutations([
+        //     'PREVIOUS_QUESTION',
+        //     'NEXT_QUESTION'
+        // ]),
+        // ...mapActions([
             
-        ]),
-        previousQuestion() {
-            this.PREVIOUS_QUESTION()
-        },
-        nextQuestion() {
-            this.NEXT_QUESTION(mapState.questionNo)
-        },
+        // ]),
+        // previousQuestion() {
+        //     this.PREVIOUS_QUESTION()
+        // },
+        // nextQuestion() {
+        //     this.NEXT_QUESTION(mapState.questionNo)
+        // },
         startTimerCount(start){
             if(!start){
                 clearInterval(x);
@@ -82,9 +84,9 @@ export default {
     created() {
 
     },
-    beforeRouteLeave() {
-        this.startTimerCount(false)
-    }
+    // beforeRouteLeave() {
+    //     this.startTimerCount(false)
+    // }
 }
 </script>
 <style lang="scss" scoped>
