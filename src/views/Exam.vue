@@ -38,10 +38,9 @@ export default {
         }
     },
     computed: {
-        // ...mapState([
-        //     'questionNo',
-        //     'questions'
-        // ]),
+        ...mapState([
+            'isUserAuthenticated'
+        ]),
         ...mapGetters([
             'getQuestionByNo'
         ])
@@ -81,12 +80,18 @@ export default {
             }, 1000);
         }
     },
-    created() {
-
+    beforeRouteEnter(to, from, next ) {
+        next() 
     },
-    // beforeRouteLeave() {
-    //     this.startTimerCount(false)
-    // }
+    beforeRouteLeave (to, from, next) {
+        const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+        if (answer) {
+            next()
+            window.location.reload()
+        } else {
+            next(false)
+        }
+    } 
 }
 </script>
 <style lang="scss" scoped>

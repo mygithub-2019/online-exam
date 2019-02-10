@@ -17,7 +17,7 @@
             <!-- <span style="width: 20px">{{ index + 1 }}.</span>  -->
             <table>
                 <!-- <tr><p>{{questionNo + 1}}. <span>{{ question.question }}</span></p></tr> -->
-                <tr class="form-check col-md-6" v-for="(option, index) in question.options" v-bind:key="index">
+                <tr class="form-check col-lg-12" v-for="(option, index) in question.options" v-bind:key="index">
                     <td><label class="form-check-label"></label></td>
                     <td><input 
                     type="radio" 
@@ -114,7 +114,8 @@ export default {
         ...mapMutations([
             'PREVIOUS_QUESTION',
             'NEXT_QUESTION',
-            'END_EXAM'
+            'END_EXAM',
+            'IS_USER_AUTHENTICATED'
         ]),
         ...mapActions([
             
@@ -160,7 +161,7 @@ export default {
                     this.allAnswers.push(data)
                 }
             }
-            //this.answer = ""
+            this.answer = ""
         },
         updateAnswer(data){
             for(let i = 0; i <= this.allAnswers.length; i++){
@@ -176,7 +177,8 @@ export default {
             })
             console.log(this.allAnswers)
             this.END_EXAM('ture')
-            this.$router.push('/')
+            this.IS_USER_AUTHENTICATED('false')
+            this.$router.go(-1)
             window.location.reload()
         },
         ansSelected(){

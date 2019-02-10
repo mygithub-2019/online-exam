@@ -2,19 +2,24 @@
   <div class="login">
     <!-- <HelloWorld msg="Test"/> -->
     <div class="container col-lg-6">
+      <div class="alert alert-danger alert-dismissible fade show"
+        v-if="userNotFound">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>User not found!</strong> Please register to login.
+      </div>
       <h2>Login</h2>
       <div class="card">
         <div class="card-body">
           <form @submit.prevent="login">
             <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" class="form-control" 
+              <input type="email" class="form-control"  placeholder="Please enter valid email"
               id="email"
               v-model="email">
             </div>
             <div class="form-group">
               <label for="pwd">Password</label>
-              <input type="password" class="form-control" 
+              <input type="password" class="form-control" placeholder='Please enter valid password' 
               id="pwd"
               v-model="pwd">
             </div>
@@ -49,7 +54,8 @@ export default {
     return {
       email: '',
       pwd: '',
-      users: []
+      users: [],
+      userNotFound: false
     }
   },
   components: {
@@ -88,10 +94,19 @@ export default {
         }
       })
       if(this.isUserAuthenticated){
+        this.START_EXAM(true)
         this.$router.push('/exam')
       }else{
-          alert('User not found...!');
+          this.userNotFound = true
+          setTimeout(() => {
+            this.userNotFound = false
+            this.resetUserFormData()
+          }, 2000)
       }
+    },
+    resetUserFormData(){
+      this.email = ''
+      this.pwd = ''
     }
   },
   created(){
