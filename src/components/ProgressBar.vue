@@ -6,7 +6,7 @@
             aria-valuemax="100" :style="{width: progressBarWidth + '%'}">{{ getProgressBarWidth() + '%'}}</div> -->
         <div class="progress-bar progress-bar-striped progress-bar-animated" 
             role="progressbar" aria-valuemin="0" 
-            aria-valuemax="100" :style="{width: pbWidth + '%'}">{{ pbWidth + '%'}}</div>
+            aria-valuemax="100" :style="{width: pbWidth + '%'}"><strong>{{ pbWidth + '%'}}</strong></div>
         </div>
         <!-- {{ progressBarWidth }} -->
     </div>
