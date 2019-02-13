@@ -17,6 +17,12 @@ export default new Vuex.Store({
   getters: {
     getQuestionByNo(state){
       return questions[state.questionNo]
+    },
+    getExamStatus(state){
+      return state.isExamEnd
+    },
+    getPB(state){
+        return (state.questionNo/state.questions.length) * 100 + 10
     }
 },
   mutations: {

@@ -9,7 +9,8 @@
         <!-- <div v-for="(qton, index) in getQuestions" v-bind:key="index">
             <app-question-tempate :question='qton' :qNo="questionNo"></app-question-tempate>
         </div><br> -->
-        <app-question-tempate :question='getQuestionByNo'></app-question-tempate>
+        <!-- <app-progress-bar class="col-lg-12"></app-progress-bar><br> -->
+        <app-question-tempate class="col-lg-12" :question='getQuestionByNo'></app-question-tempate>
         <br>
         <div>
             <!-- <button class="btn btn-primary float-center"
@@ -29,6 +30,8 @@
 
 <script>
 import QuestionTempate from './QuestionTemplate.vue'
+import ProgressBar from '../components/ProgressBar.vue'
+
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -42,11 +45,13 @@ export default {
             'isUserAuthenticated'
         ]),
         ...mapGetters([
-            'getQuestionByNo'
+            'getQuestionByNo',
+            'getExamStatus'
         ])
     },
     components: {
-        appQuestionTempate: QuestionTempate
+        appQuestionTempate: QuestionTempate,
+        appProgressBar: ProgressBar
     },
     methods:{
         // ...mapMutations([
@@ -84,12 +89,17 @@ export default {
         next() 
     },
     beforeRouteLeave (to, from, next) {
-        const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
-        if (answer) {
+        if(!this.getExamStatus){
+            const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+            if (answer) {
+                next()
+                window.location.reload()
+            } else {
+                next(false)
+            }
+        }else{
             next()
             window.location.reload()
-        } else {
-            next(false)
         }
     } 
 }

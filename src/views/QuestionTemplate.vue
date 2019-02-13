@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="jumbotron float-center" v-show="!isExamEnd">
+            <app-progress-bar class="col-lg-12" :pbWidth='pbWidth'></app-progress-bar><br>
             <table>
                 <tr><b>{{questionNo + 1}}. <span>{{ question.question }}</span></b></tr>
             </table><br>
@@ -24,8 +25,8 @@
                     class="form-check-input" 
                     name="answer" 
                     :value='option'
-                    v-model="answer"
-                    @click="ansSelected"
+                    v-model="question.answer"
+                    @click="ansSelected(question, option)"
                     >{{ option }}</td>
                 </tr>
             </table>
@@ -55,7 +56,6 @@
                 v-show='questionNo == 9' 
                 @click="reviewAnswers"  
             >Review Answers</button>
-
             <!-- <button class="btn btn-primary float-center"
                 v-show='questionNo == 9' 
                 @click="submitTest"  
@@ -85,7 +85,10 @@
 </template>
 
 <script>
+import ProgressBar from '../components/ProgressBar.vue'
+
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { throws } from 'assert';
 
 export default {
     computed: {
@@ -95,7 +98,8 @@ export default {
             'isExamEnd'
         ]),
         ...mapGetters([
-            'getQuestionByNo'
+            'getQuestionByNo',
+            'getPB'
         ])
     },
     props: [
@@ -106,9 +110,13 @@ export default {
             answer: '',
             allAnswers: [],
             isReviewAnswers: false,
+            pbWidth: 0
             //isExamEnd: false
             //isPrevQuestion: false
         }
+    },
+    components: {
+        appProgressBar: ProgressBar
     },
     methods: {
         ...mapMutations([
@@ -133,13 +141,12 @@ export default {
             //this.isPrevQuestion = !this.isPrevQuestion
         },
         nextQuestion() {
-            //this.isPrevQuestion = false
-            let _data = {
-                "id": this.questionNo,
-                "answer": this.answer
-            }
-            this.NEXT_QUESTION(mapState.questionNo)
-            this.addAnswer(_data)
+            // let _data = {
+            //     "id": this.questionNo,
+            //     "answer": this.answer
+            // }
+               this.NEXT_QUESTION(mapState.questionNo)
+            // this.addAnswer(_data)
         },
         addAnswer(data){
             if(this.allAnswers.length == 0){
@@ -181,8 +188,15 @@ export default {
             this.$router.go(-1)
             window.location.reload()
         },
-        ansSelected(){
-            this.question.answer = this.answer
+        ansSelected(_qtn, _ans){
+            this.pbWidth = this.$store.getters.getPB
+            // let _data = {
+            //     "id": this.questionNo,
+            //     "answer": this.answer
+            // }
+            _qtn.answer = _ans
+            this.addAnswer(_qtn)
+            //console.log(this.question.answer)
         }
     },
     beforeRouteLeave() {
